@@ -1,6 +1,6 @@
 /// <reference path="../pb_data/types.d.ts" />
 migrate((app) => {
-  const collection = app.findCollectionByNameOrId("pbc_2651147324")
+  const collection = app.findCollectionByNameOrId("students")
 
   // add field
   collection.fields.addAt(16, new Field({
@@ -28,7 +28,7 @@ migrate((app) => {
 
   return app.save(collection)
 }, (app) => {
-  const collection = app.findCollectionByNameOrId("pbc_2651147324")
+  const collection = app.findCollectionByNameOrId("students")
 
   // remove field
   collection.fields.removeById("autodate2990389176")

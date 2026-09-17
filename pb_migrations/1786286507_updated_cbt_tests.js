@@ -1,6 +1,6 @@
 /// <reference path="../pb_data/types.d.ts" />
 migrate((app) => {
-  const collection = app.findCollectionByNameOrId("pbc_1153412552")
+  const collection = app.findCollectionByNameOrId("cbt_tests")
 
   // remove field
   collection.fields.removeById("json2329695445")
@@ -41,7 +41,7 @@ migrate((app) => {
 
   return app.save(collection)
 }, (app) => {
-  const collection = app.findCollectionByNameOrId("pbc_1153412552")
+  const collection = app.findCollectionByNameOrId("cbt_tests")
 
   // add field
   collection.fields.addAt(6, new Field({
