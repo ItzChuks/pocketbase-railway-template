@@ -2,27 +2,30 @@
 migrate((app) => {
   const collection = app.findCollectionByNameOrId("staff")
 
-  // add field
-  collection.fields.addAt(13, new Field({
-    "hidden": false,
-    "id": "file_staff_photo",
-    "maxSelect": 1,
-    "maxSize": 5242880,
-    "mimeTypes": [
-      "image/jpeg",
-      "image/png",
-      "image/webp"
-    ],
-    "name": "photo",
-    "presentable": false,
-    "protected": false,
-    "required": false,
-    "system": false,
-    "thumbs": [
-      "100x100"
-    ],
-    "type": "file"
-  }))
+  // add field only if it doesn't already exist
+  const alreadyExists = collection.fields.some((f) => f.name === "photo" || f.id === "file_staff_photo")
+  if (!alreadyExists) {
+    collection.fields.addAt(13, new Field({
+      "hidden": false,
+      "id": "file_staff_photo",
+      "maxSelect": 1,
+      "maxSize": 5242880,
+      "mimeTypes": [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+      ],
+      "name": "photo",
+      "presentable": false,
+      "protected": false,
+      "required": false,
+      "system": false,
+      "thumbs": [
+        "100x100"
+      ],
+      "type": "file"
+    }))
+  }
 
   return app.save(collection)
 }, (app) => {
