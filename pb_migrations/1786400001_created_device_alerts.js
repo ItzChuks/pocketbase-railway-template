@@ -12,6 +12,13 @@
    left at null — nobody can create rows through the client API.
    ============================================================ */
 migrate((app) => {
+  try {
+    app.findCollectionByNameOrId("device_alerts");
+    return; // already exists — skip creating it again
+  } catch (e) {
+    // not found — continue and create it below
+  }
+
   const collection = new Collection({
     "createRule": null,
     "deleteRule": "@request.auth.collectionName = 'admins'",

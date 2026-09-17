@@ -1,5 +1,12 @@
 /// <reference path="../pb_data/types.d.ts" />
 migrate((app) => {
+  try {
+    app.findCollectionByNameOrId("classes");
+    return; // already exists — skip creating it again
+  } catch (e) {
+    // not found — continue and create it below
+  }
+
   const collection = new Collection({
     "createRule": "@request.auth.collectionName = 'admins'",
     "deleteRule": "@request.auth.collectionName = 'admins'",
