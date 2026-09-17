@@ -2,9 +2,8 @@
 migrate((app) => {
   const collection = app.findCollectionByNameOrId("students")
 
-  // add field only if it doesn't already exist
-  const alreadyExists = collection.fields.some((f) => f.name === "photo" || f.id === "file_student_photo")
-  if (!alreadyExists) {
+  try {
+    // add field
     collection.fields.addAt(18, new Field({
       "hidden": false,
       "id": "file_student_photo",
@@ -25,9 +24,11 @@ migrate((app) => {
       ],
       "type": "file"
     }))
-  }
 
-  return app.save(collection)
+    return app.save(collection)
+  } catch (e) {
+    return; // field already exists — skip
+  }
 }, (app) => {
   const collection = app.findCollectionByNameOrId("students")
 
